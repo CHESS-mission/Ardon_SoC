@@ -47,4 +47,18 @@ force -deposit /io_apb_PADDR 1 1200, 0 1240
 force -deposit /io_apb_PWRITE 1 1200, 0 1240
 force -deposit /io_apb_PWDATA 1 1200, 0 1240
 
-run 1500
+# read trigger value at 1400
+force -deposit /io_apb_PSEL 2 1400, 0 1440
+force -deposit /io_apb_PENABLE 1 1400, 0 1440
+force -deposit /io_apb_PADDR 2 1400, 0 1440
+force -deposit /io_apb_PWRITE 0 1400, 0 1440
+force -deposit /io_apb_PWDATA 0 1400, 0 1440
+
+# read trigger value at 1600
+force -deposit /io_apb_PSEL 2 1600, 0 1640
+force -deposit /io_apb_PENABLE 1 1600, 0 1640
+force -deposit /io_apb_PADDR 1 1600, 0 1640
+force -deposit /io_apb_PWRITE 0 1600, 0 1640
+force -deposit /io_apb_PWDATA 0 1600, 0 1640
+
+run 1700
