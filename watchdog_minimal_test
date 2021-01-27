@@ -1,0 +1,50 @@
+view wave -undock
+delete wave *
+
+add wave /reset
+add wave /clk
+add wave /io_apb_PSEL
+add wave /io_apb_PENABLE
+add wave /io_apb_PADDR
+add wave /io_apb_PWRITE
+add wave /io_apb_PWDATA
+add wave /io_apb_PRDATA
+add wave /io_apb_PREADY
+add wave /logic_counter
+add wave /logic_trigger_value
+add wave /io_interrupt
+add wave /logic_status
+
+
+force -deposit /clk 1 0, 0 {10ns} -repeat 20
+force -deposit /reset 1 0, 0 20
+
+# reset couner at 500
+force -deposit /io_apb_PSEL 0 0, 2 500, 0 540
+force -deposit /io_apb_PENABLE 0 0, 1 500, 0 540
+force -deposit /io_apb_PADDR 0 0, 0 500, 0 540
+force -deposit /io_apb_PWRITE 0 0, 1 500, 0 540
+force -deposit /io_apb_PWDATA 0 0, 1 500, 0 540
+
+# set trigger value to 16 at 700
+force -deposit /io_apb_PSEL 2 700, 0 740
+force -deposit /io_apb_PENABLE 1 700, 0 740
+force -deposit /io_apb_PADDR 2 700, 0 740
+force -deposit /io_apb_PWRITE 1 700, 0 740
+force -deposit /io_apb_PWDATA 16 700, 0 740
+
+#deactivate at 1000
+force -deposit /io_apb_PSEL 2 1000, 0 1040
+force -deposit /io_apb_PENABLE 1 1000, 0 1040
+force -deposit /io_apb_PADDR 1 1000, 0 1040
+force -deposit /io_apb_PWRITE 1 1000, 0 1040
+force -deposit /io_apb_PWDATA 0 1000, 0 1040
+
+#activate at 1200
+force -deposit /io_apb_PSEL 2 1200, 0 1240
+force -deposit /io_apb_PENABLE 1 1200, 0 1240
+force -deposit /io_apb_PADDR 1 1200, 0 1240
+force -deposit /io_apb_PWRITE 1 1200, 0 1240
+force -deposit /io_apb_PWDATA 1 1200, 0 1240
+
+run 1500
