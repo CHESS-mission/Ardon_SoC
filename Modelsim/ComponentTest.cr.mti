@@ -33,8 +33,11 @@ Model Technology ModelSim PE Student Edition vcom 10.4a Compiler 2015.03 Apr  7 
 -- Loading package pkg_enum
 -- Compiling entity Watchdog
 -- Compiling architecture arch of Watchdog
+-- Compiling entity Watchdog_1
+-- Compiling architecture arch of Watchdog_1
 -- Compiling entity APB_Test
 -- Compiling architecture arch of APB_Test
 -- Loading entity Watchdog
+-- Loading entity Watchdog_1
 
 } {} {}}

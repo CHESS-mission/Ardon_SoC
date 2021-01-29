@@ -9,10 +9,10 @@ z2
 cModel Technology
 dC:/Users/micha/Documents/EPFL/BA3/EE_110/Logisim/LogicWatch/modelsim
 Eapb_test
-Z0 w1611929910
-Z1 DPx4 work 8 pkg_enum 0 22 45aU=PaEQjBW0be_C;Gad2
+Z0 w1611934469
+Z1 DPx4 work 8 pkg_enum 0 22 Ee@lj5ZB^n5[GjfNdCC883
 Z2 DPx4 ieee 9 math_real 0 22 Sk6CSihbPL<f[^Shm]=KX0
-Z3 DPx4 work 13 pkg_scala2hdl 0 22 BVmON>ziXMM8>HWN<`n0o1
+Z3 DPx4 work 13 pkg_scala2hdl 0 22 @B1gC1d`;oY8OGOG>2`nU0
 Z4 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 Z5 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z6 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
@@ -20,32 +20,33 @@ Z7 dC:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/Mod
 Z8 8C:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/APB_Test.vhd
 Z9 FC:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/APB_Test.vhd
 l0
-L634
-VZoE5B_FU55c]ghEEcFjGG2
-!s100 nKFLLC?]:7_@lC1::XBAY2
+L867
+VF3c7jXWNc7[XbGe_561DT2
+!s100 i6;5=NK_P[@OzJKX<2YB]3
 Z10 OP;C;10.4a;61
 32
-Z11 !s110 1611930079
+Z11 !s110 1611935990
 !i10b 1
-Z12 !s108 1611930079.000000
+Z12 !s108 1611935990.000000
 Z13 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/APB_Test.vhd|
 Z14 !s107 C:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/APB_Test.vhd|
 !i113 1
 Z15 o-work work -2002 -explicit -O0
 Z16 tExplicit 1
 Aarch
-Z17 DEx4 work 8 watchdog 0 22 4NhoBKX8e=Q9Rc_b:bRY;0
+Z17 DEx4 work 10 watchdog_1 0 22 <Sgae4MWmU9UZhS2>j]U02
+Z18 DEx4 work 8 watchdog 0 22 8K9Dk6X2ANfcoKN_8zOfX0
 R1
 R2
 R3
 R4
 R5
 R6
-DEx4 work 8 apb_test 0 22 ZoE5B_FU55c]ghEEcFjGG2
-l654
-L649
-VjAfnJYW9S80S_H4P_mjOg1
-!s100 F;ef]IDX>OChTYKzj2geh2
+DEx4 work 8 apb_test 0 22 F3c7jXWNc7[XbGe_561DT2
+l891
+L883
+VZo0jVQTL:B@D?EX1`2G[m3
+!s100 A]HdUcLGIIa:[=EP2D9lb1
 R10
 32
 R11
@@ -60,22 +61,22 @@ Ppkg_enum
 R4
 R5
 R6
-Z18 w1611929720
+R0
 R7
-Z19 8C:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/Watchdog.vhd
-Z20 FC:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/Watchdog.vhd
+R8
+R9
 l0
 L9
-V45aU=PaEQjBW0be_C;Gad2
-!s100 @^BS5o6_fcb5]MV8TZjI03
+VEe@lj5ZB^n5[GjfNdCC883
+!s100 3bISbUX561Mh:a`=>?>@m0
 R10
 32
 b1
-Z21 !s110 1611930080
+R11
 !i10b 1
 R12
-Z22 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/Watchdog.vhd|
-Z23 !s107 C:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/Watchdog.vhd|
+R13
+R14
 !i113 1
 R15
 R16
@@ -85,41 +86,41 @@ R4
 R5
 R6
 l0
-L17
-Z24 V01oAfJ@a=3@2E`@S^UOc?3
-Z25 !s100 XNliUom6@C`JTSLPJf>k80
+L21
+VA5Q^:13Y6hC?n6>XfVL=c0
+!s100 GABB6blHzagKZ2jC4IGIi0
 R10
 32
-R21
+R11
 !i10b 1
 R12
-R22
-R23
+R13
+R14
 !i113 1
 R15
 R16
-Z26 nbody
+Z19 nbody
 Ppkg_scala2hdl
 R2
 R4
 R5
 R6
-R18
+R0
 R7
-R19
-R20
+R8
+R9
 l0
-L53
-VBVmON>ziXMM8>HWN<`n0o1
-!s100 KU`Kd4aNe2o7>gdc^?bWk3
+L84
+V@B1gC1d`;oY8OGOG>2`nU0
+!s100 FfAb>>@O2AZagXVR]m=]M1
 R10
 32
 b1
-R21
+R11
 !i10b 1
 R12
-R22
-R23
+R13
+R14
 !i113 1
 R15
 R16
@@ -130,22 +131,22 @@ R4
 R5
 R6
 l0
-L108
-Z27 VWffe][VSOh<F5AQfXi=Z73
-Z28 !s100 72V@a_gjhkjPSP`Lff@mo3
+L139
+VI9FKOf>Ng;zI59^nCeRAR3
+!s100 DTYdi<IAASWznMczzHS@G1
 R10
 32
-R21
+R11
 !i10b 1
 R12
-R22
-R23
+R13
+R14
 !i113 1
 R15
 R16
-R26
+R19
 Ewatchdog
-R18
+R0
 R1
 R2
 R3
@@ -153,19 +154,66 @@ R4
 R5
 R6
 R7
-R19
-R20
+R8
+R9
 l0
-L432
-V4NhoBKX8e=Q9Rc_b:bRY;0
-!s100 m^9llo[4mM54ZC=ho[P6?2
+L463
+V8K9Dk6X2ANfcoKN_8zOfX0
+!s100 05PRE:dRWcdl27_[D[n9<2
 R10
 32
-R21
+R11
 !i10b 1
 R12
-R22
-R23
+R13
+R14
+!i113 1
+R15
+R16
+Aarch
+R1
+R2
+R3
+R4
+R5
+R6
+R18
+l493
+L478
+V4gCi7cC@5Zn`diPXDOTf>3
+!s100 g73=_FoznjIZf@<mF:[Y[1
+R10
+32
+R11
+!i10b 1
+R12
+R13
+R14
+!i113 1
+R15
+R16
+Ewatchdog_1
+R0
+R1
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+l0
+L665
+V<Sgae4MWmU9UZhS2>j]U02
+!s100 ScGHPIKGY4`GUNiOC2I3:0
+R10
+32
+R11
+!i10b 1
+R12
+R13
+R14
 !i113 1
 R15
 R16
@@ -177,17 +225,17 @@ R4
 R5
 R6
 R17
-l462
-L447
-Z29 V^Z^jhQKVK9?5B>:V2=5EB2
-Z30 !s100 C46bJTjYeXH05TMe8Z:bD3
+l695
+L680
+VJ?>Lfd=:Szhl0FcRV6U1c0
+!s100 O?<@JBR52jN2R4ON0jigo2
 R10
 32
-R21
+R11
 !i10b 1
 R12
-R22
-R23
+R13
+R14
 !i113 1
 R15
 R16

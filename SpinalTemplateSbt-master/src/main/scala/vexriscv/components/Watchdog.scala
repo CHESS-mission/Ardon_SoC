@@ -3,16 +3,17 @@ package vexriscv.components
 
 import spinal.core._
 import spinal.lib._
+import spinal.lib.bus.amba3.apb.{Apb3, Apb3Config}
 import spinal.lib.fsm._
 
 // Watchdog component
 
-class Watchdog(apbConfig: ApbConfig, counter_trigger_value: Int, counter_width: Int, PSEL_Nr: Int) extends Component {
-  require(apbConfig.dataWidth == 32)
+class Watchdog(apb3Config: Apb3Config, counter_trigger_value: Int, counter_width: Int, PSEL_Nr: Int) extends Component {
+  require(apb3Config.dataWidth == 32)
   // maybe need other stuff
 
   val io = new Bundle {
-    val apb = slave(Apb(apbConfig))
+    val apb = slave(Apb3(apb3Config))
     val interrupt = out Bool
   }
 

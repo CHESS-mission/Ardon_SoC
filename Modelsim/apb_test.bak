@@ -1,0 +1,31 @@
+view wave -undock
+delete wave *
+
+add wave /reset
+add wave /clk
+add wave /io_apb_PSEL
+add wave /io_apb_PENABLE
+add wave /io_apb_PADDR
+add wave /io_apb_PWRITE
+add wave /io_apb_PWDATA
+add wave /io_apb_PRDATA
+add wave /io_apb_PREADY
+add wave /io_interrupt
+add wave /io_interrupt2
+
+force -deposit /clk 1 0, 0 {10ns} -repeat 20
+force -deposit /reset 1 0, 0 20
+
+# reset watchdog1 (PSEL 1)at 500
+force -deposit /io_apb_PSEL 0 0, 1 500, 0 540
+force -deposit /io_apb_PENABLE 0 0, 1 500, 0 540
+force -deposit /io_apb_PADDR 0 0, 0 500, 0 540
+force -deposit /io_apb_PWRITE 0 0, 1 500, 0 540
+force -deposit /io_apb_PWDATA 0 0, 1 500, 0 540
+
+# reset watchdog2 (PCEL 2) at 600
+force -deposit /io_apb_PSEL 2 600, 0 640
+force -deposit /io_apb_PENABLE 1 600, 0 640
+force -deposit /io_apb_PADDR 0 600, 0 640
+force -deposit /io_apb_PWRITE 1 600, 0 640
+force -deposit /io_apb_PWDATA 1 600, 0 640
