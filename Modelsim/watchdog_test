@@ -10,11 +10,7 @@ add wave /io_apb_PWRITE
 add wave /io_apb_PWDATA
 add wave /io_apb_PRDATA
 add wave /io_apb_PREADY
-add wave /logic_counter
-add wave /logic_trigger_value
 add wave /io_interrupt
-add wave /logic_status
-
 
 force -deposit /clk 1 0, 0 {10ns} -repeat 20
 force -deposit /reset 1 0, 0 20

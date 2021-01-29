@@ -386,7 +386,7 @@ class Briey(config: BrieyConfig) extends Component{
 object Briey{
   def main(args: Array[String]) {
     val config = SpinalConfig()
-    config.generateVerilog({
+    config.generateVhdl({
       val toplevel = new Briey(BrieyConfig.default)
       toplevel.axi.vgaCtrl.vga.ctrl.io.error.addAttribute(Verilator.public)
       toplevel.axi.vgaCtrl.vga.ctrl.io.frameStart.addAttribute(Verilator.public)
