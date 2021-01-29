@@ -1,6 +1,7 @@
 *.class
 *.log
 *.bak
+.*.swp
 
 # sbt specific
 .cache/
@@ -24,6 +25,7 @@ out
 bin/
 .classpath
 .project
+.cproject
 .settings
 .cache-main
 
@@ -34,8 +36,17 @@ bin/
 *.json
 *.vcd
 !tester/src/test/resources/*.vhd
-
+obj_dir
+*.logTrace
+*.yaml
+*.memTrace
+*.regTrace
+*.debugTrace
+*.tcl
+*.o
+*.bin
 
 simWorkspace/
 tmp/
-null
+/archive.tar.gz
+*.out32
