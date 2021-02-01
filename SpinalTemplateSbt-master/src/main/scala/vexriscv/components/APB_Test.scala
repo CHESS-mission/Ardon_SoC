@@ -60,7 +60,7 @@ class APB_Test(apb3Config: Apb3Config) extends Component{
   //connect slave outputs
   io.apb.PREADY := False
   io.apb.PRDATA := 0
-  uartCtrl.io.uart.
+  //uartCtrl.io.uart.
 
   when(watchdog.io.apb.PREADY){
     io.apb.PREADY := watchdog.io.apb.PREADY
