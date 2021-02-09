@@ -8,7 +8,8 @@ import spinal.lib.fsm._
 
 // Watchdog component
 
-class Watchdog(apb3Config: Apb3Config, counter_trigger_value: BigInt, counter_width: Int, PSEL_Nr: Int) extends Component {
+
+class Watchdog(apb3Config: Apb3Config, counter_trigger_value: BigInt, counter_width: Int) extends Component {
   require(apb3Config.dataWidth == 32)
   // maybe need other stuff
 
@@ -75,7 +76,7 @@ class Watchdog(apb3Config: Apb3Config, counter_trigger_value: BigInt, counter_wi
     logic.set_status := logic.status
 
     val is_initiaded = Reg(Bool) init(False)
-    when(io.apb.PSEL(PSEL_Nr) && io.apb.PENABLE){
+    when(io.apb.PSEL === 1 && io.apb.PENABLE){
       // We're in the second cycle
       when(is_initiaded === True){
         io.apb.PREADY := True
@@ -84,14 +85,17 @@ class Watchdog(apb3Config: Apb3Config, counter_trigger_value: BigInt, counter_wi
           // Master writes to Watchdog
           switch(io.apb.PADDR) {
             is(0) { // Reset the counter
-              when (io.apb.PWDATA(0) === True ){
+              when(io.apb.PWDATA(0) === True) {
                 logic.reset_counter := True
               }
             }
-            is(1){ // activate / deactivate
+            is(1) { // activate / deactivate
               logic.set_status := io.apb.PWDATA(0)
+              when(io.apb.PWDATA(0) === False){
+                logic.reset_counter := True
+              }
             }
-            is(2) { // Set the trigger value
+            is(2){ // Set the trigger value
               logic.set_trigger_value := io.apb.PWDATA.asUInt.resized
             }
           }
@@ -107,7 +111,7 @@ class Watchdog(apb3Config: Apb3Config, counter_trigger_value: BigInt, counter_wi
         }
         // We're in the first cycle
       }.otherwise{
-        io.apb.PREADY := True
+        io.apb.PREADY := False
         is_initiaded := True
       }
     }

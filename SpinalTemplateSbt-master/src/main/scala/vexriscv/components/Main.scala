@@ -12,11 +12,11 @@ object Main {
       selWidth      = 1,
       useSlaveError = false
     )
+
     SpinalVhdl(new Watchdog(
       apb3Config = apb3Config,
-      counter_trigger_value = 4000000000L,
-      counter_width = 32 ,
-      PSEL_Nr  = 0
+      counter_trigger_value = BigInt(4000000000L),
+      counter_width = 32
     ))
   }
 }
