@@ -7,13 +7,16 @@ object Main {
   // Let's go
   def main(args: Array[String]) {
     val apb3Config = Apb3Config(
-      addressWidth  = 8,
+      addressWidth  = 32,
       dataWidth     = 32,
-      selWidth      = 4,
+      selWidth      = 1,
       useSlaveError = false
     )
-    SpinalVhdl(new APB_Test(
-      apb3Config = apb3Config
+    SpinalVhdl(new Watchdog(
+      apb3Config = apb3Config,
+      counter_trigger_value = 4000000000L,
+      counter_width = 32 ,
+      PSEL_Nr  = 0
     ))
   }
 }

@@ -57,94 +57,141 @@ R14
 !i113 1
 R15
 R16
+Edelay
+Z19 w1612708196
+Z20 DPx4 work 8 pkg_enum 0 22 eVX8WS?IdNEc=RNP4Am[53
+R2
+Z21 DPx4 work 13 pkg_scala2hdl 0 22 BVmON>ziXMM8>HWN<`n0o1
+R4
+R5
+R6
+R7
+Z22 8C:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/Delay.vhd
+Z23 FC:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/Delay.vhd
+l0
+L432
+Vd?aF79K7_]_GXk]8_K5dF2
+!s100 nn>F39_m>M:cQNBl11ojN3
+R10
+32
+Z24 !s110 1612708219
+!i10b 1
+Z25 !s108 1612708219.000000
+Z26 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/Delay.vhd|
+Z27 !s107 C:/Users/micha/Documents/EPFL/Spacecraft Team/Spinal/Ardon_Soc/Ardon_SoC/SpinalTemplateSbt-master/Delay.vhd|
+!i113 1
+R15
+R16
+Aarch
+R20
+R2
+R21
+R4
+R5
+R6
+Z28 DEx4 work 5 delay 0 22 d?aF79K7_]_GXk]8_K5dF2
+l448
+L441
+V0cXaz@l`XNlB^c[o_G:_D2
+!s100 5D`[6T:Jcfnj?SKE[iz6m2
+R10
+32
+R24
+!i10b 1
+R25
+R26
+R27
+!i113 1
+R15
+R16
 Ppkg_enum
 R4
 R5
 R6
-R0
+R19
 R7
-R8
-R9
+R22
+R23
 l0
 L9
-VEe@lj5ZB^n5[GjfNdCC883
-!s100 3bISbUX561Mh:a`=>?>@m0
+VeVX8WS?IdNEc=RNP4Am[53
+!s100 ZFVWa6N>fc_B]LKaLG@nT3
 R10
 32
 b1
-R11
+R24
 !i10b 1
-R12
-R13
-R14
+R25
+R26
+R27
 !i113 1
 R15
 R16
 Bbody
-R1
+R20
 R4
 R5
 R6
 l0
-L21
-VA5Q^:13Y6hC?n6>XfVL=c0
-!s100 GABB6blHzagKZ2jC4IGIi0
+L17
+Z29 V9ZP8g9nG>gUB4Xd;7VE9A2
+Z30 !s100 Z36KIWS1Z__:f0k[:[ChH0
 R10
 32
-R11
+R24
 !i10b 1
-R12
-R13
-R14
+R25
+R26
+R27
 !i113 1
 R15
 R16
-Z19 nbody
+Z31 nbody
 Ppkg_scala2hdl
 R2
 R4
 R5
 R6
-R0
+R19
 R7
-R8
-R9
+R22
+R23
 l0
-L84
-V@B1gC1d`;oY8OGOG>2`nU0
-!s100 FfAb>>@O2AZagXVR]m=]M1
+L53
+VBVmON>ziXMM8>HWN<`n0o1
+!s100 KU`Kd4aNe2o7>gdc^?bWk3
 R10
 32
 b1
-R11
+R24
 !i10b 1
-R12
-R13
-R14
+R25
+R26
+R27
 !i113 1
 R15
 R16
 Bbody
-R3
+R21
 R2
 R4
 R5
 R6
 l0
-L139
-VI9FKOf>Ng;zI59^nCeRAR3
-!s100 DTYdi<IAASWznMczzHS@G1
+L108
+Z32 VWffe][VSOh<F5AQfXi=Z73
+Z33 !s100 72V@a_gjhkjPSP`Lff@mo3
 R10
 32
-R11
+R24
 !i10b 1
-R12
-R13
-R14
+R25
+R26
+R27
 !i113 1
 R15
 R16
-R19
+R31
 Ewatchdog
 R0
 R1

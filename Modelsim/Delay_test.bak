@@ -1,0 +1,13 @@
+view wave -undock
+delete wave *
+
+add wave /reset
+add wave /clk
+add wave /io_input
+add wave /io_led
+
+force -deposit /clk 1 0, 0 {10ns} -repeat 20
+force -deposit /reset 1 50, 0 70
+force -deposit /io_input 1 0, 0 20 -repeat 5000
+
+run 6000
