@@ -12,7 +12,7 @@ class APBTester(io_map : scala.collection.immutable.Map[String,spinal.core.BaseT
   val io = io_map
   val dut = obj
 
-  def read(address : BigInt) : BigInt = {
+  def read(address: BigInt): BigInt = {
     io("apb_PSEL").assignBigInt(1)
     io("apb_PENABLE").assignBigInt(0)
     io("apb_PADDR").assignBigInt(address)
@@ -28,9 +28,9 @@ class APBTester(io_map : scala.collection.immutable.Map[String,spinal.core.BaseT
     io("apb_PRDATA").toBigInt
   }
 
-  def readAssert(address : BigInt, data : BigInt, mask : BigInt, message : String) : Unit =  assert((read(address) & mask) == data, message)
+  def readAssert(address: BigInt, data: BigInt, mask: BigInt, message: String): Unit = assert((read(address) & mask) == data, message)
 
-  def write(address : BigInt, data : BigInt) : Unit = {
+  def write(address: BigInt, data: BigInt): Unit = {
     io("apb_PSEL").assignBigInt(1)
     io("apb_PENABLE").assignBigInt(0)
     io("apb_PWRITE").assignBigInt(1)
@@ -47,4 +47,18 @@ class APBTester(io_map : scala.collection.immutable.Map[String,spinal.core.BaseT
   }
 
   def write(packet: APBWritePacket): Unit = write(packet.address, packet.data)
+
+  //------------- Other useful stuff
+
+  def wait_check(cycles: BigInt, check: () => Boolean): Boolean = {
+    if (cycles == 0) return true
+    if (check()) {
+      obj.clockDomain.waitRisingEdge()
+      wait_check(cycles - 1, check)
+    }
+    else return false
+  }
+
+  def wait_check(cycles: Int, check: () => Boolean): Boolean = wait_check(BigInt(cycles), check)
+
 }

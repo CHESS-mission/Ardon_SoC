@@ -6,13 +6,13 @@ import spinal.lib._
 import spinal.lib.bus.amba3.apb.{Apb3, Apb3Config}
 import spinal.lib.fsm._
 
-class WatchdogLED(apb3Config: Apb3Config, counter_trigger_value: BigInt, counter_width: Int, PSEL_Nr: Int, frequency: Int, active_duration: Double) extends Component {
+class WatchdogLED(apb3Config: Apb3Config, counter_trigger_value: BigInt, counter_width: Int, frequency: Int, active_duration: Double) extends Component {
   val io = new Bundle {
     val apb = slave(Apb3(apb3Config))
     val interrupt = out Bool
   }
   // Subcomponents
-  val watchdog = new Watchdog(apb3Config, counter_trigger_value, counter_width, PSEL_Nr)
+  val watchdog = new Watchdog(apb3Config, counter_trigger_value, counter_width)
   val delay = new Delay(frequency, active_duration)
 
   // Connections
@@ -36,7 +36,6 @@ object Main_WatchdogLED {
       apb3Config = apb3Config,
       counter_trigger_value = 4000000000L,
       counter_width = 32 ,
-      PSEL_Nr  = 0,
       frequency = 100000000,
       active_duration = 1
     ))

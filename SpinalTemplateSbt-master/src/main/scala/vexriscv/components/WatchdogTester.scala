@@ -1,9 +1,11 @@
 package vexriscv.components
 
 import spinal.core.Component
+import spinal.core._
+import spinal.core.sim._
 
 class WatchdogTester(io_map : scala.collection.immutable.Map[String,spinal.core.BaseType], obj : vexriscv.components.Watchdog) extends APBTester(io_map, obj){
-  def set_trigger_value(new_trigger_value : Int, io : scala.collection.immutable.Map[String,spinal.core.BaseType], dut : vexriscv.components.Watchdog) : Unit = {
+  def set_trigger_value(new_trigger_value : BigInt) : Unit = {
     write(2,new_trigger_value)
   }
 
@@ -17,5 +19,13 @@ class WatchdogTester(io_map : scala.collection.immutable.Map[String,spinal.core.
 
   def deactivate_watchdog() : Unit = {
     write(1,0)
+  }
+
+  def get_trigger_value() : BigInt =  {
+    read(address = 2)
+  }
+
+  def is_active() : Boolean = {
+    read(address = 1) == 1
   }
 }

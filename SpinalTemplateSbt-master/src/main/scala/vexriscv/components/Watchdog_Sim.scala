@@ -70,37 +70,37 @@ object Watchdog_Sim{
 
   def main(args: Array[String]): Unit = {
     val apb3Config = Apb3Config(
-      addressWidth  = 8,
-      dataWidth     = 32,
-      selWidth      = 1,
+      addressWidth = 8,
+      dataWidth = 32,
+      selWidth = 1,
       useSlaveError = false
     )
-    val counter_width = 8
-    val compiled = SimConfig.withWave.compile(new Watchdog(apb3Config, counter_trigger_value=10, counter_width=counter_width))
+    val counter_width = 32
+    val compiled = SimConfig.withWave.compile(new Watchdog(apb3Config, counter_trigger_value = 10, counter_width = counter_width))
 
-    compiled.doSim("Signal Identification"){ dut =>
+    compiled.doSim("Signal Identification") { dut =>
       // Simulation code here
       val name = "Signal Identification"
-      val io = dut.io.flatten.map(e => e.getName().replace("io_","") -> e).toMap
+      val io = dut.io.flatten.map(e => e.getName().replace("io_", "") -> e).toMap
       println("[" + name + "]   " + "The signals are:")
-      io foreach {case (key, value) => printf("[" + name + "]   " + key + " : " + value + "\n") }
+      io foreach { case (key, value) => printf("[" + name + "]   " + key + " : " + value + "\n") }
       simSuccess
     }
 
-    compiled.doSim("Reset Interrupt Test"){ dut =>
+    compiled.doSim("Reset Interrupt Test") { dut =>
       // Simulation code here
       val name = "Reset Interrupt Test"
-      val io = dut.io.flatten.map(e => e.getName().replace("io_","") -> e).toMap
-      printf(Console.YELLOW + "[" + name + "] Be aware that signals are randomized between write and read cycles \n" + Console.RESET )
+      val io = dut.io.flatten.map(e => e.getName().replace("io_", "") -> e).toMap
+      printf(Console.YELLOW + "[" + name + "] Be aware that signals are randomized between write and read cycles \n" + Console.RESET)
 
       // initialize
       dut.clockDomain.forkStimulus(period = 10)
       sleep(200)
       // Reset the counter a couple of times
-      for(i <- 0 to 100){
-        if(i % 9 == 0){
+      for (i <- 0 to 100) {
+        if (i % 9 == 0) {
           reset_counter(io, dut)
-        }else{
+        } else {
           sleep(10)
         }
         assert(!dut.io.interrupt.toBoolean, "Interrupt is 1, expected zero")
@@ -108,57 +108,122 @@ object Watchdog_Sim{
       simSuccess
     }
 
-    compiled.doSim("Change counter_trigger_value"){ dut =>
+    compiled.doSim("Change counter_trigger_value") { dut =>
       // Simulation code here
 
       val name = "Change counter_trigger_value"
       val number_of_runs = 20
-      val io = dut.io.flatten.map(e => e.getName().replace("io_","") -> e).toMap
+      val io = dut.io.flatten.map(e => e.getName().replace("io_", "") -> e).toMap
       // initialize
       dut.clockDomain.forkStimulus(period = 10)
       sleep(200)
 
       var new_trigger_value = 0
-      for(j <- 0 to number_of_runs){
+      for (j <- 0 to number_of_runs) {
         printf("[" + name + "] run " + j + " of " + number_of_runs + "\n")
-        new_trigger_value = scala.util.Random.nextInt(scala.math.pow(2,counter_width).toInt -5 -1) + 5
+        new_trigger_value = scala.util.Random.nextInt(10000) + 5
         set_trigger_value(new_trigger_value, io, dut)
         // Reset the counter
         reset_counter(io, dut)
-        dut.clockDomain.waitRisingEdge(new_trigger_value+1)
+        dut.clockDomain.waitRisingEdge(new_trigger_value +1)
         assert(dut.io.interrupt.toBoolean, "Expected interrupt = 1, got interrupt = 0")
       }
       simSuccess
     }
 
-    compiled.doSim("Activate and Deactivate Watchdog"){ dut =>
+    compiled.doSim("Activate and Deactivate Watchdog") { dut =>
       // Simulation code here
 
       val name = "Activate and Deactivate Watchdog"
       val number_of_runs = 5
-      val io = dut.io.flatten.map(e => e.getName().replace("io_","") -> e).toMap
+      val io = dut.io.flatten.map(e => e.getName().replace("io_", "") -> e).toMap
       // initialize
       dut.clockDomain.forkStimulus(period = 10)
       sleep(200)
 
-      for(j <- 0 to number_of_runs){
+      for (j <- 0 to number_of_runs) {
         printf("[" + name + "] run " + j + " of " + number_of_runs + "\n")
         deactivate_watchdog(io, dut)
-        for(i <- 0 to 100){
+        for (i <- 0 to 100) {
           dut.clockDomain.waitRisingEdge()
           assert(!dut.io.interrupt.toBoolean, "Interrupt = 1 but the watchdog is deactivated")
         }
         activate_watchdog(io, dut)
         var i = 0
-        while(!dut.io.interrupt.toBoolean){
+        while (!dut.io.interrupt.toBoolean) {
           dut.clockDomain.waitRisingEdge()
           i += 1
-          if(i > 1000){
+          if (i > 1000) {
             simFailure("Watchdog is activated but there was no interrupt in 1000 clock cycles")
           }
         }
       }
       simSuccess
+    }
+
+    /*
+    ####################################################################################################################
+     ------------------------------ Using the new tester class from here -----------------------------------------------
+    ####################################################################################################################
+     */
+    compiled.doSim("Combinational Test") { dut =>
+      val name = "Combinational Test"
+      val io = dut.io.flatten.map(e => e.getName().replace("io_", "") -> e).toMap
+      val tester = new WatchdogTester(io, dut)
+      var trigger_value = BigInt(100)
+
+      def check_for_interrupt(): Unit = {
+        tester.reset_counter()
+        tester.wait_check(trigger_value, () => !dut.io.interrupt.toBoolean)
+        dut.clockDomain.waitRisingEdge()
+        assert(dut.io.interrupt.toBoolean, "Interrupt should be one, is zero")
+        dut.clockDomain.waitRisingEdge(20)
+      }
+
+      // initialize
+      dut.clockDomain.forkStimulus(period = 10)
+      sleep(200)
+
+      // Test with initial trigger value
+      printf("[" + name + "] Test with initial trigger value \n")
+      trigger_value = tester.get_trigger_value()
+      printf("[" + name + "] Initial trigger_value " + trigger_value + "\n")
+      check_for_interrupt
+
+      // Deactivate watchdog
+      printf("[" + name + "] Deactivated \n")
+      tester.deactivate_watchdog()
+      assert(tester.wait_check(100, () => !dut.io.interrupt.toBoolean), "interrupt is 1 but watchdog is deactivated")
+      trigger_value = 123
+      tester.set_trigger_value(trigger_value)
+      assert(tester.wait_check(100, () => !dut.io.interrupt.toBoolean), "interrupt is 1 but watchdog is deactivated")
+
+
+      //Reactivate watchdog
+      printf("[" + name + "] Reactivated \n")
+      tester.activate_watchdog()
+      assert(tester.wait_check(trigger_value-1, () => !dut.io.interrupt.toBoolean), "reset should be zero after reactivation")
+      dut.clockDomain.waitRisingEdge(150)
+      check_for_interrupt
+
+      // check interrupt for random triggerValues
+      for(i <- 0 to 100){
+        trigger_value = scala.util.Random.nextInt(1000) + 5
+        printf("[" + name + "] Trigger value " + trigger_value + " in run " + i + " \n")
+        tester.set_trigger_value(trigger_value)
+        dut.clockDomain.waitRisingEdge(5)
+        check_for_interrupt
+      }
+
+      // Reading status
+      tester.deactivate_watchdog()
+      assert(!tester.is_active(), "Watchdog is deactivated but status is active")
+      dut.clockDomain.waitRisingEdge()
+      tester.activate_watchdog()
+      assert(tester.is_active(), "Watchdog is activated but status is inactive")
+      dut.clockDomain.waitRisingEdge()
+
+      simSuccess()
     }
   }
 }
