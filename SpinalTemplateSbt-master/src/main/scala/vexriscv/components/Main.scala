@@ -13,6 +13,7 @@ object Main {
       useSlaveError = false
     )
 
+
     SpinalVhdl(new Watchdog(
       apb3Config = apb3Config,
       counter_trigger_value = BigInt(4000000000L),

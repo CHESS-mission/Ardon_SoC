@@ -8,7 +8,6 @@ import spinal.lib.fsm._
 
 // Watchdog component
 
-
 class Watchdog(apb3Config: Apb3Config, counter_trigger_value: BigInt, counter_width: Int) extends Component {
   require(apb3Config.dataWidth == 32)
   // maybe need other stuff
