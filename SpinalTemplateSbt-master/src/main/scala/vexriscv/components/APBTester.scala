@@ -4,11 +4,13 @@ import spinal.core._
 import spinal.core.sim._
 import spinal.lib.bus.amba3.apb.Apb3Config
 
+import scala.collection.mutable.ListBuffer
+
 class APBWritePacket(addr: BigInt, dat : BigInt){
   val address = addr
   val data =  dat
 }
-class APBTester(io_map : scala.collection.immutable.Map[String,spinal.core.BaseType], obj : Component) {
+class APBTester(io_map : scala.collection.immutable.Map[String,spinal.core.BaseType], obj : Component) extends BinaryOperations {
   val io = io_map
   val dut = obj
 
@@ -61,4 +63,5 @@ class APBTester(io_map : scala.collection.immutable.Map[String,spinal.core.BaseT
 
   def wait_check(cycles: Int, check: () => Boolean): Boolean = wait_check(BigInt(cycles), check)
 
-}
+  }
+
