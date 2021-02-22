@@ -16,6 +16,10 @@ class BinaryOperations {
     }
     addLeadingZerosAndReverse(step(value, List()), length)
   }
+
+  def binaryListToInt(li: List[Int]): Int = {
+    if(li.length >=1) (scala.math.pow(2, li.length-1) * li.head + binaryListToInt(li.tail)).toInt else 0
+  }
 }
 
 class UARTPacket(data: Int) extends BinaryOperations {
@@ -43,6 +47,9 @@ class UARTPacket(data: Int) extends BinaryOperations {
 
 class UARTTester(baudrate: Int, io_map : scala.collection.immutable.Map[String,spinal.core.BaseType], obj : Component) extends APBTester(io_map, obj) {
   val REG_BAUD_RATE = 8
+  val REG_RECEIVED_DATA = 0
+  val RECEIVED_PACKET_VALID_BIT = 15 // from front === 32-offset-1
+
   var baud_rate = BigInt(0)
   val ns_per_bit = (1000000000.0/(115200*2)).toInt // factpr 1/2 needed to have the desired frequency, no clue why
 
@@ -51,16 +58,24 @@ class UARTTester(baudrate: Int, io_map : scala.collection.immutable.Map[String,s
   }
   def receive_uart_packet(packet: UARTPacket): Unit ={
     packet.createPacket()
-    //print("Sending to UART: ")
-    //packet.binary.foreach(print)
-    //print("where the payload is ")
-    //toBinaryList(packet.payload, length=8).foreach(print)
-    //print("\n")
     for(bit <- packet.binary){
       io("uart_rxd").assignBigInt(bit)
       sleep(ns_per_bit)
     }
     obj.clockDomain.waitRisingEdge()
   }
+
+  def readReceivedPacket(): Int = {
+    val data = read(REG_RECEIVED_DATA)
+    val binary = toBinaryList(data)
+    if(binary(RECEIVED_PACKET_VALID_BIT) == 1){
+      binaryListToInt(binary.drop(24))
+    } else {
+      println("received non valid packet")
+      0
+    }
+  }
+
+  def sendPayload(payload: Int): Unit = write(0, payload)
 
 }
