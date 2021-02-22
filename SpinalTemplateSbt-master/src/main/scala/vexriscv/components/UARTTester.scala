@@ -23,7 +23,7 @@ class UARTPacket(data: Int) extends BinaryOperations {
   val payload = data
   def add_start_bit() = {binary = binary :+ 0}
   def add_payload() = {binary = List.concat(binary, toBinaryList(data, 8))}
-  def add_stop_bit() = {binary = List.concat(binary, List(1,1)) }
+  def add_stop_bit() = {binary = List.concat(binary, List(1)) }
   def add_parity_bit() = {
     // 0: even, 1 odd
     var parity = 0
@@ -41,30 +41,26 @@ class UARTPacket(data: Int) extends BinaryOperations {
 }
 
 
-class UARTTester(io_map : scala.collection.immutable.Map[String,spinal.core.BaseType], obj : Component) extends APBTester(io_map, obj) {
+class UARTTester(baudrate: Int, io_map : scala.collection.immutable.Map[String,spinal.core.BaseType], obj : Component) extends APBTester(io_map, obj) {
   val REG_BAUD_RATE = 8
   var baud_rate = BigInt(0)
+  val ns_per_bit = (1000000000.0/(115200*2)).toInt // factpr 1/2 needed to have the desired frequency, no clue why
 
   def init() = {
     io("uart_rxd").assignBigInt(1) // Default HIGH
   }
   def receive_uart_packet(packet: UARTPacket): Unit ={
-    assert(baud_rate != 0, "Baud Rate was not initialized")
     packet.createPacket()
-    print("Sending to UART: ")
-    packet.binary.foreach(print)
-    print("where the payload is ")
-    toBinaryList(packet.payload, length=8).foreach(print)
-    print("\n")
+    //print("Sending to UART: ")
+    //packet.binary.foreach(print)
+    //print("where the payload is ")
+    //toBinaryList(packet.payload, length=8).foreach(print)
+    //print("\n")
     for(bit <- packet.binary){
-      obj.clockDomain.waitRisingEdge((baud_rate + 1).toInt)
       io("uart_rxd").assignBigInt(bit)
+      sleep(ns_per_bit)
     }
     obj.clockDomain.waitRisingEdge()
   }
 
-  def setBaudrate(new_baud_rate: BigInt) = {
-    write(REG_BAUD_RATE, new_baud_rate)
-    baud_rate = new_baud_rate
-  }
 }
