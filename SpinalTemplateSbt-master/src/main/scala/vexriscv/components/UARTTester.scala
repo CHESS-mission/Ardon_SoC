@@ -22,7 +22,7 @@ class UARTPacket(data: Int) extends BinaryOperations {
   var binary = List[Int]()
   val payload = data
   def add_start_bit() = {binary = binary :+ 0}
-  def add_payload() = {binary = List.concat(binary, toBinaryList(data, 8))}
+  def add_payload() = {binary = List.concat(binary, toBinaryList(data, 8).reverse)}
   def add_stop_bit() = {binary = List.concat(binary, List(1)) }
   def add_parity_bit() = {
     // 0: even, 1 odd
