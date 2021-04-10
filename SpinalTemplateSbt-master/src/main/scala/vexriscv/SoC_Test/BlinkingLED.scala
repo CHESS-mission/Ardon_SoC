@@ -13,8 +13,8 @@ class BlinkingLED() extends Component {
     val led5 = out Bool
   }
 
-  val led5_ = Reg(Bool) init True
-  io.led5 := led5_
+  val led5_tmp = Reg(Bool) init True
+  io.led5 := led5_tmp
 
 
   val logic = new Area {
@@ -25,14 +25,14 @@ class BlinkingLED() extends Component {
 
       stateOn
         .onEntry{
-          led5_ := True
+          led5_tmp := True
         }
         .whenCompleted {
           goto(stateOff)
         }
       stateOff
         .onEntry{
-          led5_ := False
+          led5_tmp := False
         }
         .whenCompleted {
           goto(stateOn)

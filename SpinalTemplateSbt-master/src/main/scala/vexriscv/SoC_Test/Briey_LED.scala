@@ -386,6 +386,18 @@ class Briey_LED(config: BrieyConfig) extends Component{
   io.vga            <> axi.vgaCtrl.io.vga
 }
 
+object Briey{
+  def main(args: Array[String]) {
+    val config = SpinalConfig()
+    config.generateVerilog({
+      val toplevel = new Briey_LED(BrieyConfig.default)
+      toplevel
+    })
+  }
+}
+
+
+/*
 //DE1-SoC
 object Briey{
   def main(args: Array[String]) {
@@ -447,3 +459,4 @@ object BrieyDe0Nano{
     })
   }
 }
+*/
